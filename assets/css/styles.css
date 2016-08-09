@@ -18,13 +18,16 @@
   height: 15em;
 }
 
+.vote-count {
+  color: #555;
+  font-size: 1.5em;
+  padding-top: 1em!important;
+}
+
 .vote-control {
   display: block;
   font-size: 1.5em;
-}
-
-.vote-control:nth-child(2n+1) {
-  padding-top: 1em;
+  cursor: pointer;
 }
 
 /*HELPERS*/
