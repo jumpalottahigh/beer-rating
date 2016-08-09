@@ -18,7 +18,20 @@
   height: 15em;
 }
 
+.vote-control {
+  display: block;
+  font-size: 1.5em;
+}
+
+.vote-control:nth-child(2n+1) {
+  padding-top: 1em;
+}
+
 /*HELPERS*/
+.padding-none {
+  padding: 0!important;
+}
+
 .padding-top {
   padding-top: 2em;
 }
