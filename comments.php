@@ -30,14 +30,19 @@
           )
         );
 
+        //Set session name
+        foreach ($statement as $row) {
+          $_SESSION["name"] = $row["name"];
+        }
+
         //Count returned rows
         $count = $statement->rowCount();
 
         if ($count > 0) {
           //Update session email var
           $_SESSION["email"] = $_POST["email"];
+
           //User logged in, redirect to logged in page
-          // header("location:index.php");
           header("location:" . $_SERVER['REQUEST_URI']);
         } else {
           //No match
@@ -63,14 +68,19 @@
 
         //After account creation, also log the user in
         $_SESSION["email"] = $_POST["create_account_email"];
+        $_SESSION["name"] = $_POST["create_account_name"];
         // header("location:index.php");
         header("location:" . $_SERVER['REQUEST_URI']);
       }
     }
 
+    //If user has submitted a comment
+    // if (isset($_SESSION["email"]))
+
   } catch (PDOException $error) {
     $message = $error->getMessage();
   }
+
 ?>
 
 <!DOCTYPE html>

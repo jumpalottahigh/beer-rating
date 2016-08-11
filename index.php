@@ -25,6 +25,11 @@
           )
         );
 
+        //Set session name
+        foreach ($statement as $row) {
+          $_SESSION["name"] = $row["name"];
+        }
+
         //Count returned rows
         $count = $statement->rowCount();
 
@@ -57,6 +62,7 @@
 
         //After account creation, also log the user in
         $_SESSION["email"] = $_POST["create_account_email"];
+        $_SESSION["name"] = $_POST["create_account_name"];
         header("location:index.php");
       }
     }
@@ -64,6 +70,7 @@
   } catch (PDOException $error) {
     $message = $error->getMessage();
   }
+  
 ?>
 
 <!DOCTYPE html>
