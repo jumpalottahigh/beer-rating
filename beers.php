@@ -34,9 +34,7 @@
           echo '<i class="fa fa-caret-up text-success vote-control vote-up" aria-hidden="true"></i>';
           echo '<i class="fa fa-caret-down text-danger vote-control vote-down" aria-hidden="true"></i>';
         }
-
       }
-
     }
 
     echo '</div>
