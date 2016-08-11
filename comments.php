@@ -12,17 +12,17 @@
     $connect = new PDO("mysql:host=$DB_host;dbname=$DB_database", $DB_username, $DB_password);
     $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    //User clicked submit button
+    // User clicked submit button
     if (isset($_POST["login"])) {
-      //A field was left empty
+      // A field was left empty
       if (empty($_POST["email"]) || empty($_POST["password"])) {
         $message = '<label>All fields are required!</label>';
       } else {
-        //Prep query
+        // Prep query
         $query = "SELECT * FROM users WHERE email = :email AND password = :password";
         $statement = $connect->prepare($query);
 
-        //Query DB for matching email and password
+        // Query DB for matching email and password
         $statement->execute(
           array(
             'email' => $_POST["email"],
@@ -30,52 +30,73 @@
           )
         );
 
-        //Set session name
+        // Set session name
         foreach ($statement as $row) {
           $_SESSION["name"] = $row["name"];
         }
 
-        //Count returned rows
+        // Count returned rows
         $count = $statement->rowCount();
 
         if ($count > 0) {
-          //Update session email var
+          // Update session email var
           $_SESSION["email"] = $_POST["email"];
 
-          //User logged in, redirect to logged in page
+          // User logged in, redirect to logged in page
           header("location:" . $_SERVER['REQUEST_URI']);
         } else {
-          //No match
+          // No match
           $message = '<label>Wrong email or password!</label>';
         }
       }
     }
 
-    //If user clicked create account button
+    // If user clicked create account button
     if (isset($_POST["create_account_button"])) {
       if (empty($_POST["create_account_name"]) || empty($_POST["create_account_email"]) || empty($_POST["create_account_password"])) {
         $message = '<label>All fields are required!</label>';
       } else {
-        //Prep and execute insert query
+        // Prep and execute insert query
         $query = "INSERT INTO users (name, email, password) VALUES (:create_account_name, :create_account_email, :create_account_password)";
         $statement = $connect->prepare($query);
-        //Bind variables
+        // Bind variables
         $statement->bindParam(':create_account_name', $_POST["create_account_name"]);
         $statement->bindParam(':create_account_email', $_POST["create_account_email"]);
         $statement->bindParam(':create_account_password', $_POST["create_account_password"]);
-        //Execute
+        // Execute
         $statement->execute();
 
-        //After account creation, also log the user in
+        // After account creation, also log the user in
         $_SESSION["email"] = $_POST["create_account_email"];
         $_SESSION["name"] = $_POST["create_account_name"];
-        // header("location:index.php");
         header("location:" . $_SERVER['REQUEST_URI']);
       }
     }
 
-    //If user has submitted a comment
-    // if (isset($_SESSION["email"]))
+    // If user has clicked submit a comment button
+    if (isset($_POST["sendCommentBtn"])) {
+      // And user is logged in
+      if (isset($_SESSION["email"]) && isset($_SESSION["name"])) {
+        // Can't submit an empty comment
+        if (empty($_POST["addCommentTextbox"])) {
+          $message = '<label>Can\'t submit an empty comment!</label>';
+        } else {
+          // Prep and execute insert query
+          $query = "INSERT INTO comments (username, comment, beer_name) VALUES (:username, :comment, :beer_name)";
+          $statement = $connect->prepare($query);
+          // Bind variables
+          $statement->bindParam(':username', $_SESSION["name"]);
+          $statement->bindParam(':comment', $_POST["addCommentTextbox"]);
+          $statement->bindParam(':beer_name', $_GET["beer"]);
+          // Execute
+          $statement->execute();
+
+          // Refresh the page
+          header("location:" . $_SERVER['REQUEST_URI']);
+        }
+      }
+
+    }
 
   } catch (PDOException $error) {
     $message = $error->getMessage();
@@ -143,7 +164,7 @@
                 // Grab beer param and prepare SQL statement
                 $param = $_GET['beer'];
                 $n = 1;
-                //INNER JOIN comments and beers tables and fetch the corresponding comments
+                // INNER JOIN comments and beers tables and fetch the corresponding comments
                 $queryStr = 'SELECT * FROM comments INNER JOIN beers ON comments.beer_name = beers.name WHERE name = "'.$param.'"';
 
                 foreach($connect->query($queryStr) as $row) {
