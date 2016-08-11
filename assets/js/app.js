@@ -1,16 +1,17 @@
 $(document).ready(function() {
   //Init
+
+  // TODO: FACTOR OUT
   //Hide card comments
-  $('.card-comments').hide();
-
+  // $('.card-comments').hide();
   // Comments click handler
-  $('.btn-card-comments').on('click', function (e) {
-    e.preventDefault();
-    // Show the comments
-    $(this).parents('.card').find('.card-comments').toggle();
-
-    //Show comment box and button to comment
-  });
+  // $('.btn-card-comments').on('click', function (e) {
+  //   e.preventDefault();
+  //   // Show the comments
+  //   $(this).parents('.card').find('.card-comments').toggle();
+  //
+  //   //Show comment box and button to comment
+  // });
 
   //Vote control handlers
   $('.vote-control').on('click', function () {

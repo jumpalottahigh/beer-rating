@@ -11,22 +11,16 @@
         <form method="POST">
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
           </div>
           <div class="form-group">
             <input type="submit" name="login" value="Login" class="btn btn-primary">
           </div>
         </form>
-        <!-- Display php errors and status messages here -->
-        <?php
-          if (isset($message)) {
-            echo '<label class="text-danger">'.$message.'</label>';
-          }
-        ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -58,11 +52,7 @@
           </div>
           <div class="form-group">
             <label for="create_account_password">Password</label>
-            <input type="password" class="form-control" id="create_account_password" name="create_account_password" placeholder="Password" required>
-          </div>
-          <div class="form-group">
-            <label for="create_account_confirm_password">Confirm password</label>
-            <input type="password" class="form-control" id="create_account_confirm_password" name="create_account_confirm_password" placeholder="Password again" required>
+            <input type="password" class="js-password-twice form-control" id="create_account_password" name="create_account_password" placeholder="Password" required>
           </div>
           <div class="checkbox">
             <label>

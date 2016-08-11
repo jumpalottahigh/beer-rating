@@ -105,18 +105,22 @@
       ?>
 
       <div class="row">
-        <div class="col-xs-12">
-          <h1 class="alert alert-info text-center">Beer Comments</h1>
-        </div>
+        <h1 class="alert alert-info text-center">Comments for <span class="text-success"><?php echo $_GET['beer'] ?></span></h1>
       </div>
-
-      <!-- This is the essence that display all beers from the DB -->
-      <div class="row">
-        <?php include("beers.php"); ?>
-      </div>
-
     </div>
   </section>
+
+  <section>
+    <?php
+      //INNER JOIN comments and beers tables and fetch the corresponding comments
+      foreach($connect->query('SELECT * FROM comments INNER JOIN beers ON comments.beer_name = beers.name') as $row) {
+        echo 'Comment N' . $row['comment_id'];
+        echo $row['comment'];
+        echo ' by ' . $row['username'];
+      }
+    ?>
+  </section>
+
 
   <!-- ADD FOOTER -->
   <?php include("footer.php"); ?>
