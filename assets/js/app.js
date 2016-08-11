@@ -1,34 +1,27 @@
 $(document).ready(function() {
-  //Init
-
-  // TODO: FACTOR OUT
-  //Hide card comments
-  // $('.card-comments').hide();
-  // Comments click handler
-  // $('.btn-card-comments').on('click', function (e) {
-  //   e.preventDefault();
-  //   // Show the comments
-  //   $(this).parents('.card').find('.card-comments').toggle();
-  //
-  //   //Show comment box and button to comment
-  // });
-
   //Vote control handlers
   $('.vote-control').on('click', function () {
-    var currentCount = $(this).siblings('.vote-count').data('count');
-    console.log(currentCount);
-    if ($(this).hasClass('vote-up')) {
-      currentCount++;
-      console.log('Up');
-    } else {
-      currentCount--;
-      console.log('Down');
-    }
+    // var currentCount = $(this).siblings('.vote-count').data('count');
+    // console.log(currentCount);
 
-    // Update the data attributes
-    $(this).siblings('.vote-count').data('count', currentCount);
-    // Update the card
-    $(this).siblings('.vote-count').text(currentCount);
+    // // Update the data attributes
+    // $(this).siblings('.vote-count').data('count', currentCount);
+    // // Update the card
+    // $(this).siblings('.vote-count').text(currentCount);
+
+    // var data = [];
+    //
+    // if ($(this).hasClass('vote-up')) {
+    //   console.log("wokrs");
+    //   data.push({name: 'up', value: 1});
+    // } else {
+    //   console.log("wokrsaaa");
+    //   data.push({name: 'down', value: -1});
+    // }
+    //
+    // $.post("test_handler.php", data);
+    // console.log(data);
+
   });
 
 });
