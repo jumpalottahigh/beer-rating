@@ -1,4 +1,9 @@
 <?php
+  // If user arrives to comments page with no GET parameter
+  if (!isset($_GET['beer']) || empty($_GET['beer'])) {
+    header("location:index.php");
+  }
+
   session_start();
 
   require("DB_config.php");
@@ -111,14 +116,39 @@
   </section>
 
   <section>
-    <?php
-      //INNER JOIN comments and beers tables and fetch the corresponding comments
-      foreach($connect->query('SELECT * FROM comments INNER JOIN beers ON comments.beer_name = beers.name') as $row) {
-        echo 'Comment N' . $row['comment_id'];
-        echo $row['comment'];
-        echo ' by ' . $row['username'];
-      }
-    ?>
+    <div class="container">
+      <div class="row">
+        <div class="panel panel-default">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                // Grab beer param and prepare SQL statement
+                $param = $_GET['beer'];
+                $n = 1;
+                //INNER JOIN comments and beers tables and fetch the corresponding comments
+                $queryStr = 'SELECT * FROM comments INNER JOIN beers ON comments.beer_name = beers.name WHERE name = "'.$param.'"';
+
+                foreach($connect->query($queryStr) as $row) {
+                  echo '<tr>
+                          <th scope="row">'.$n.'</th>
+                          <td>'.$row['username'].'</td>
+                          <td>'.$row['comment'].'</td>
+                        </tr>';
+                  $n++;
+                }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </section>
 
 
