@@ -1,11 +1,7 @@
 <?php
   session_start();
 
-  $DB_host = "localhost";
-  $DB_username = "root";
-  $DB_password = "";
-  $DB_database = "test";
-  $message = "";
+  require("DB_config.php");
 
   try {
     $connect = new PDO("mysql:host=$DB_host;dbname=$DB_database", $DB_username, $DB_password);
@@ -79,45 +75,16 @@
   <title>Beer Comments</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <!-- Custom Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.php">Beer comments</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="index.php">Home</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <!-- If no user is logged in, show login and create account buttons -->
 
-          <!-- Otherwise show logout button -->
-          <?php
-            if (isset($_SESSION["email"])) {
-              echo '<li><a href="logout.php" class="btn btn-primary login-button">Logout</a></li>';
-            } else {
-              echo '<li><a href="#create-account-modal" class="" data-toggle="modal" data-target="#create-account-modal">Create account</a></li>';
-              echo '<li><a href="#login-modal" class="btn btn-primary login-button" data-toggle="modal" data-target="#login-modal">Login</a></li>';
-            }
-          ?>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
-    </div>
-    <!--/.container-fluid -->
-  </nav>
+  <!-- ADD HEADER -->
+  <?php include("header.php"); ?>
 
   <section>
     <div class="container">
@@ -259,89 +226,11 @@
     </div>
   </section>
 
-  <!-- Modals -->
-  <!-- Login modal -->
-  <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title text-center">Login</h4>
-        </div>
-        <div class="modal-body">
-          <form method="POST">
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-            </div>
-            <div class="form-group">
-              <input type="submit" name="login" value="Login" class="btn btn-primary">
-            </div>
-          </form>
-          <!-- Display php errors and status messages here -->
-          <?php
-            if (isset($message)) {
-              echo '<label class="text-danger">'.$message.'</label>';
-            }
-          ?>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+  <!-- ADD FOOTER -->
+  <?php include("footer.php"); ?>
 
-  <!-- Create account modal -->
-  <div id="create-account-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title text-center">Create an account</h4>
-        </div>
-        <div class="modal-body">
-          <form method="POST">
-            <div class="form-group">
-              <label for="create_account_name">Display name</label>
-              <input type="text" class="form-control" id="create_account_name" name="create_account_name" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-              <label for="create_account_email">Email address</label>
-              <input type="email" class="form-control" id="create_account_email" name="create_account_email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-              <label for="create_account_password">Password</label>
-              <input type="password" class="form-control" id="create_account_password" name="create_account_password" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-              <label for="create_account_confirm_password">Confirm password</label>
-              <input type="password" class="form-control" id="create_account_confirm_password" name="create_account_confirm_password" placeholder="Password again" required>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" required> I agree with the TOS.
-              </label>
-            </div>
-            <input type="submit" value="Create" name="create_account_button" class="btn btn-primary">
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+  <!-- ADD MODALS -->
+  <?php include("modals.php"); ?>
 
   <!-- jQuery3 -->
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
