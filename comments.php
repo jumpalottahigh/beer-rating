@@ -37,7 +37,8 @@
           //Update session email var
           $_SESSION["email"] = $_POST["email"];
           //User logged in, redirect to logged in page
-          header("location:index.php");
+          // header("location:index.php");
+          header("location:" . $_SERVER['REQUEST_URI']);
         } else {
           //No match
           $message = '<label>Wrong email or password!</label>';
@@ -62,14 +63,14 @@
 
         //After account creation, also log the user in
         $_SESSION["email"] = $_POST["create_account_email"];
-        header("location:index.php");
+        // header("location:index.php");
+        header("location:" . $_SERVER['REQUEST_URI']);
       }
     }
 
   } catch (PDOException $error) {
     $message = $error->getMessage();
   }
-
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +111,7 @@
       ?>
 
       <div class="row">
-        <h1 class="alert alert-info text-center">Comments for <span class="text-success"><?php echo $_GET['beer'] ?></span></h1>
+        <h2 class="alert alert-info text-center">Comments for <span class="text-success"><?php echo $_GET['beer'] ?></span></h2>
       </div>
     </div>
   </section>
@@ -150,6 +151,36 @@
       </div>
     </div>
   </section>
+
+  <!-- Only logged in users can send comments -->
+  <?php
+    if (isset($_SESSION["email"])) {
+      echo '<section>
+              <div class="container">
+                <div class="row">
+                  <h3 class="alert alert-info text-center">Send your comment:</h3>
+                  <form method="POST">
+                    <div class="form-group">
+                      <textarea class="col-xs-12 form-control" id="addCommentTextbox" name="addCommentTextbox" rows="3" placeholder="Review this beer..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <input type="submit" name="sendCommentBtn" value="Send" class="btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>';
+    } else {
+      echo '<section>
+              <div class="container">
+                <div class="row">
+                  <h3 class="alert alert-warning text-center">Login or create account if you want to write a comment.</h3>
+                </div>
+              </div>
+            </section>';
+    }
+  ?>
+
 
 
   <!-- ADD FOOTER -->

@@ -10,12 +10,12 @@
 
 .card {
   margin-bottom: 2em;
-  height: 20em;
+  height: 15em;
   box-shadow: 0 0 .5em #cecece;
 }
 
 .card-image {
-  height: 20em;
+  height: 15em;
 }
 
 .vote-count {

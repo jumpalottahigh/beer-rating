@@ -64,7 +64,6 @@
   } catch (PDOException $error) {
     $message = $error->getMessage();
   }
-
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +105,7 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <h1 class="alert alert-info text-center">Beer Comments</h1>
+          <h1 class="alert alert-info text-center">Beer Collection</h1>
         </div>
       </div>
 

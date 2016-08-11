@@ -12,8 +12,8 @@
           <p class="card-description">
             '.$row['description'].'
           </p>
-          <div class="text-right">
-            <a class="btn-card-comments" href="comments.php?beer='.$row['name'].'">Comments</a>
+          <div class="text-left">
+            <a class="btn btn-primary btn-card-comments" href="comments.php?beer='.$row['name'].'">Comments</a>
           </div>
         </div>
         <div class="col-xs-1 text-center padding-none card-rating">

@@ -17,7 +17,6 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <!-- If no user is logged in, show login and create account buttons -->
-
           <!-- Otherwise show logout button -->
           <?php
             if (isset($_SESSION["email"])) {
