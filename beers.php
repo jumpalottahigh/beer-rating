@@ -29,10 +29,9 @@
         // If the user has voted for the beer with the particular id, it will exist in the array
         // Generate the UI accordingly
         if (in_array($beer_row['id'], $userBeerVotes)) {
-          echo '<i class="fa fa-caret-down text-danger vote-control vote-down" aria-hidden="true"></i>';
+          echo '<i class="fa fa-star text-success vote-control" aria-hidden="true"></i>';
         } else {
-          echo '<i class="fa fa-caret-up text-success vote-control vote-up" aria-hidden="true"></i>';
-          echo '<i class="fa fa-caret-down text-danger vote-control vote-down" aria-hidden="true"></i>';
+          echo '<i class="fa fa-star-o text-success vote-control" aria-hidden="true"></i>';
         }
       }
     }

@@ -9,23 +9,33 @@
 
     // If we have a post event
     if (isset($_POST['beerId']) && isset($_SESSION['email'])) {
-      // echo $_POST['value'] . ' ' .$_SESSION['email'];
-      // echo $_POST['beerId'] . ' ' .$_SESSION['email'];
 
       // Save this beer into the user's collection
       // Prep and execute insert query
-      $query = "UPDATE users (votes) VALUES (:votes)";
+      $query = 'UPDATE users SET votes = concat(votes, ",'.$_POST['beerId'].'") WHERE email = "'.$_SESSION['email'].'"';
       $statement = $connect->prepare($query);
-      // Bind variables
-      $statement->bindParam(':votes', $_POST['value']);
       // Execute
       $statement->execute();
 
-      // REFACTOR
-      // header("location:index.php");
+      //TODO This error checking part needs work
+      // // Check if user has already voted
+      // foreach($connect->query('SELECT * FROM users WHERE email = "'.$_SESSION['email'].'"') as $user) {
+      //   // Create an array with user votes
+      //   $userBeerVotes = explode(',', $user['votes']);
+      // }
+      //
+      // // If the user has not voted for the beer with the particular id
+      // if (in_array($_POST['beerId'], $userBeerVotes)) {
+      //   echo "IN ARRAY" ;
+      // } else {
+      //   echo "NOT ARRAY";
+      // }
 
-      // TODO
       // Update the beer's score
+      $query = 'UPDATE beers SET score = score + 1 WHERE id = "'.$_POST['beerId'].'"';
+      $statement = $connect->prepare($query);
+      $statement->execute();
+
     }
 
   } catch (PDOException $error) {
